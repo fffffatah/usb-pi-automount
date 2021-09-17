@@ -15,6 +15,29 @@ while true; do
         #	NEXT_AVAILABLE_DEVICE_NUM=$((LAST_MOUNTED_DEVICE_NUM+1))
 	#fi
 
+	#CHECK IF DEVICE STILL CONNECTED AND REMOVE MOUNT RECORD FROM DEVICE IF NOT
+	if [[ $MOUNTED_DEVICES ]]; then
+		while read -r mounted
+		do
+			if [[ "$(lsblk | grep $mounted | cut -d' ' -f1)" == '' ]]; then
+				cd $SCRIPT_HOME/devices && sudo rm $mounted*
+				MOUNTED_DEVICES=$(cd $SCRIPT_HOME/devices && ls | sed 's/,.*//' | grep '^sd')
+			fi
+		done < <(cd $SCRIPT_HOME/devices && ls | sed 's/,.*//' | grep '^sd')
+	fi
+
+	#UNMOUNT UNRECORDED DEVICES
+	STORAGES=$(cd $MOUNT_PATH && ls | grep '^storage')
+	if [[ $STORAGES ]]; then
+		while read -r storage
+		do
+			if [[ "$(cd $SCRIPT_HOME/devices && ls | sed 's:.*,::' | grep $storage)" == '' ]]; then
+				sudo umount $MOUNT_PATH$storage
+				cd $MOUNT_PATH && sudo rmdir $storage
+			fi
+		done < <(cd $MOUNT_PATH && ls | grep '^storage')
+	fi
+
 	#MOUNT AND FORMAT DEVICES
 	if [[ $CONNECTED_DEVICES ]]; then
   		while read -r usb
