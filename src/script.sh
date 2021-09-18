@@ -10,11 +10,6 @@ while true; do
 	LAST_MOUNTED_DEVICE_NUM=$(cd $SCRIPT_HOME/devices && ls | sed 's:.*,::' | grep '^storage' | grep -o '[[:digit:]]*' | sort -n | tail -1)
 	NEXT_AVAILABLE_DEVICE_NUM='0'
 
-	#GET NEXT STORAGE NUMBER
-	#if [[ $LAST_MOUNTED_DEVICE_NUM != '' ]]; then
-        #	NEXT_AVAILABLE_DEVICE_NUM=$((LAST_MOUNTED_DEVICE_NUM+1))
-	#fi
-
 	#CHECK IF DEVICE STILL CONNECTED AND REMOVE MOUNT RECORD FROM DEVICE IF NOT
 	if [[ $MOUNTED_DEVICES ]]; then
 		while read -r mounted
