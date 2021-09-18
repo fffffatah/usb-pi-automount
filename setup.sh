@@ -21,7 +21,7 @@ cd src/config && echo $MOUNT_PATH > path && cd .. && cd ..
 mv src $HOME/usb_pi_automount
 
 #ADD TO CRONTAB
-CRONJOB="@reboot cd $HOME/usb_pi_automount && sudo ./script.sh"
+CRONJOB="@reboot cd $HOME/usb_pi_automount && ./script.sh"
 (crontab -u $(whoami) -l; echo "$CRONJOB" ) | crontab -u $(whoami) -
 
 #DONE
