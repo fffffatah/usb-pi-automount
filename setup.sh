@@ -15,7 +15,7 @@ else
 	echo "Terminating Setup!"
 	exit 1
 fi
-cd src/config && echo $MOUNT_PATH >> path && cd .. && cd ..
+cd src/config && echo $MOUNT_PATH > path && cd .. && cd ..
 
 #MOVE FILES TO /home/{user}/usb_pi_automount
 mv src $HOME/usb_pi_automount
