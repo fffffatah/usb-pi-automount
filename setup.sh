@@ -2,7 +2,7 @@
 #Author: A.F.M. NOORULLAH
 
 #CREATE PATH CONFIG
-echo "[Where do you want to your drives to be mounted?]"
+echo "[Where do you want your drives to be mounted?]"
 echo "Enter Path: "
 read MOUNT_PATH
 if [[ "${MOUNT_PATH: -1}" != '/' ]]; then
